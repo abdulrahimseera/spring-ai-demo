@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class OllamaChatController {
     private final ChatClient chatClient;
 
-    public OllamaChatController(ChatClient chatClient) {
-        this.chatClient = chatClient;
+    public OllamaChatController(ChatClient.Builder builder) {
+        this.chatClient = builder.build();
     }
 
-    @GetMapping("/ollama/generate")
-    public String generate(@RequestParam String message) {
-        return chatClient.prompt(message).toString();
+    @GetMapping("/ollama/chat")
+    public String chat(@RequestParam("msg")  String msg) {
+        return chatClient
+                .prompt()
+                .system("You are a helpful assistant.")
+                .user(msg)
+                .call()
+                .content();
     }
 }

@@ -9,5 +9,4 @@ public class SemanticSearchApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SemanticSearchApplication.class, args);
 	}
-
 }
